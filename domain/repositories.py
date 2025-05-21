@@ -15,6 +15,10 @@ class ProductRepository(ABC):
     def list(self) -> List[Product]:
         pass
 
+    @abstractmethod
+    def update(self, product_id: int) -> Product:
+        pass
+
 class OrderRepository(ABC):
     @abstractmethod
     def add(self, order: Order):
