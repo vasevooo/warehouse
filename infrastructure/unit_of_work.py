@@ -2,8 +2,8 @@ from domain.unit_of_work import UnitOfWork
 from sqlalchemy.orm import sessionmaker, Session
 from .repositories import SqlAlchemyOrderRepository, SqlAlchemyProductRepository
 
-class SqlAlchemyUnitOfWork(UnitOfWork):
 
+class SqlAlchemyUnitOfWork(UnitOfWork):
     def __init__(self, session_factory):
         self.session_factory = session_factory
 
@@ -19,7 +19,6 @@ class SqlAlchemyUnitOfWork(UnitOfWork):
         else:
             self.session.commit()
         self.session.close()
-
 
     def commit(self):
         self.session.commit()

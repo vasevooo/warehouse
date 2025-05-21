@@ -4,12 +4,14 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
+
 class ProductORM(Base):
-    __tablename__ = 'products'
+    __tablename__ = "products"
     id = Column(Integer, primary_key=True)
-    name=Column(String)
-    quantity=Column(Integer)
-    price=Column(Float)
+    name = Column(String)
+    quantity = Column(Integer)
+    price = Column(Float)
+
 
 class OrderORM(Base):
     __tablename__ = "orders"
@@ -18,11 +20,11 @@ class OrderORM(Base):
 
 
 class OrderItemORM(Base):
-    __tablename__ = 'order_items'
+    __tablename__ = "order_items"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     quantity_ordered = Column(Integer, nullable=False)
     price_at_purchase = Column(Float, nullable=False)
 
-    product = relationship("ProductORM") 
+    product = relationship("ProductORM")
