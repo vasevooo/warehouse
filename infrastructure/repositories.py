@@ -4,6 +4,7 @@ from domain.models import Order, Product
 from domain.repositories import ProductRepository, OrderRepository
 from .orm import ProductORM, OrderORM
 
+
 class SqlAlchemyProductRepository(ProductRepository):
     def __init__(self, session: Session):
         self.session=session
@@ -15,6 +16,8 @@ class SqlAlchemyProductRepository(ProductRepository):
             price=product.price,
         )
         self.session.add(product_orm)
+        self.session.flush()
+        product.id=product_orm.id
 
     def get(self, product_id: int)->Product:
         product_orm= self.session.query(ProductORM).filter_by(id=product_id).one()
