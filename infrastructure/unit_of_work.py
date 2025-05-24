@@ -1,5 +1,5 @@
 from domain.unit_of_work import UnitOfWork
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session
 from .repositories import SqlAlchemyOrderRepository, SqlAlchemyProductRepository
 
 

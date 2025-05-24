@@ -14,17 +14,14 @@ def mock_uow(mocker):
 
 
 def test_create_product_adds_and_commits(mock_uow, mocker):
-
-    product_name = 'Test Product'
+    product_name = "Test Product"
     product_q = 50
     product_p = 10.99
 
     service = WarehouseService(uow=mock_uow)
 
     created_product = service.create_product(
-        name=product_name,
-        quantity=product_q,
-        price=product_p
+        name=product_name, quantity=product_q, price=product_p
     )
 
     assert isinstance(created_product, Product)
@@ -38,8 +35,8 @@ def test_create_product_adds_and_commits(mock_uow, mocker):
 
     mock_uow.commit.assert_called_once()
 
-def test_get_product_details_product_found(mock_uow, mocker):
 
+def test_get_product_details_product_found(mock_uow, mocker):
     expected_product_id = 123
     expected_product = Product(
         id=expected_product_id, name="Testable Widget", quantity=10, price=25.00
@@ -56,7 +53,8 @@ def test_get_product_details_product_found(mock_uow, mocker):
     mock_uow.__enter__.assert_called_once()
     mock_uow.__exit__.assert_called_once()
 
-def test_create_order_success_one_item(mocker, mock_uow): 
+
+def test_create_order_success_one_item(mocker, mock_uow):
     service = WarehouseService(uow=mock_uow)
 
     test_product_id = 1
@@ -66,16 +64,15 @@ def test_create_order_success_one_item(mocker, mock_uow):
     initial_stock_quantity = 5
     product_price = 10.0
     product_on_stock = Product(
-        id=test_product_id, 
-        name="Test Product", 
-        quantity=initial_stock_quantity, 
-        price=product_price
+        id=test_product_id,
+        name="Test Product",
+        quantity=initial_stock_quantity,
+        price=product_price,
     )
 
     mock_uow.products.get.return_value = product_on_stock
 
     created_order = service.create_order(products_to_order_details)
-
 
     mock_uow.products.get.assert_called_once_with(test_product_id)
     assert isinstance(created_order, Order)
@@ -93,6 +90,4 @@ def test_create_order_success_one_item(mocker, mock_uow):
     mock_uow.commit.assert_called_once()
 
     mock_uow.__enter__.assert_called_once()
-    mock_uow.__exit__.assert_called_once_with(None, None, None) 
-
-
+    mock_uow.__exit__.assert_called_once_with(None, None, None)
